@@ -53,45 +53,46 @@ tk.Label(statsFrame, text='Idk:').grid(row=9, column=1, pady=0, sticky=E)
 idk = tk.StringVar()
 tk.Label(fileFrame, textvariable=idk, width="15", anchor="w").grid(row=9, column=2, sticky=W)
 
+tk.Button(fileFrame, text='New Window', command=open).grid(row=4, column=1, pady=5)
+
 # dropdown frame
 dropdownFrame = tk.Frame(frame).grid(row=10, column=0, padx=70, pady=30)
 
-def open():
+def runFunc():
     # new window
     top = tk.Toplevel(root)
     top.title('Enter Parameters')
-    tk.Label(top, text='dsds')
+    top.geometry("400x200")
+
+    tk.Label(top, text='Parameters').grid(row=0, column=2, padx=30, pady=20, sticky=W)
+    
+    tk.Label(top, text='Margin:').grid(row=1, column=1, padx=30, pady=10, sticky=E)
+    tk.Entry(top).grid(row=1, column=2)
+
+    if clicked.get() == "Function 1" :
+        tk.Label(top, text='Other Param:').grid(row=2, padx=30, pady=10, column=1, sticky=E)
+        tk.Entry(top).grid(row=2, column=2)
 
     top.grab_set()
 
-tk.Button(fileFrame, text='New Window', command=open).grid(row=4, column=1, pady=5)
-  
+def func1():
+    print("Hi")
+
 # Dropdown menu options
 options = [
     "Function 1",
     "Function 2",
     "Function 3",
-    "Function 4",
+    "Function 4"
 ]
-
-def func1():
-    print("Hi")
-
-# run function
-def runFunc():
-    if clicked.get() == "Function 1" :
-        func1()
 
 # dropdown menu
 clicked = StringVar()
 clicked.set("Function 1")
-drop = OptionMenu(root, clicked, *options).grid(row=11, col=1)
+drop = OptionMenu(dropdownFrame, clicked, *options).grid(row=11, column=1)
 
 # Create button, it will change label text
-button = tk.Button( root , text = "Run Function" , command = runFunc ).grid(row=11, col=0)
-
-# bottom frame
-closeBtn = tk.Button(frame, text='Close', command=root.destroy).grid(row=10, column=1, pady=60)
+button = tk.Button(dropdownFrame, text = "Run Function" , command = runFunc ).grid(row=12, column=1)
 
 
 root.mainloop()
